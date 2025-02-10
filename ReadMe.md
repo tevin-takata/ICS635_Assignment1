@@ -9,6 +9,6 @@ Ensure you have Python installed with dependencies `scikit-learn`, `matplotlib`,
 
 ### How To Run
 
-In order to run the code, either open in an IDE like PyCharm and run `main.py`, or open a terminal in the project directory.
+In order to run the code, either open in an IDE like PyCharm or open a terminal in the project directory, and run `main.py`.
 
 Follow the instructions given in the console.
