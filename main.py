@@ -11,6 +11,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 
 # Data Preprocessing
+# Use sklearn train_test_split function
 data = load_breast_cancer()
 X, y = data.data, data.target
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, stratify=y)
@@ -24,6 +25,9 @@ print("3 - Random Forest")
 
 choice = input("Enter the number of the classifier you want to use: ")
 if choice == "1":
+    # K-Nearest Neighbors model
+    # Takes integer input for number of k neighbors parameter
+    # Uses StandardScaler() to fit data
     n_neighbors = int(input("Enter the number of neighbors (k) for KNN: "))
     model = KNeighborsClassifier(n_neighbors=n_neighbors)
     scaler = StandardScaler()
@@ -32,12 +36,16 @@ if choice == "1":
     model_name = f"KNN (k={n_neighbors})"
 
 elif choice == "2":
+    # Decision Tree model
+    # Takes integer input for maximum depth parameter
     max_depth = input("Enter max_depth for Decision Tree (press Enter for default): ")
     max_depth = int(max_depth) if max_depth else None
     model = DecisionTreeClassifier(max_depth=max_depth)
     model_name = f"Decision Tree (max_depth={max_depth})"
 
 elif choice == "3":
+    # Random Forest model
+    # Takes integer input for number of estimators, maximum depth, and minimum sample split parameter
     n_estimators = int(input("Enter the number of trees (n_estimators) for Random Forest: "))
     max_depth = input("Enter max_depth for Random Forest (press Enter for default): ")
     max_depth = int(max_depth) if max_depth else None
@@ -47,12 +55,15 @@ elif choice == "3":
     model_name = f"Random Forest (n_estimators={n_estimators}, max_depth={max_depth}, min_samples_split={min_samples_split})"
 
 else:
+    # If other value is input, exit program
     print("Invalid choice. Exiting program.")
     exit()
 
+# Fit data using chosen model
 model.fit(X_train, y_train)
 
 # Evaluation
+# Use sklearn functions to evaluate models using accuracy, precision, recall, and f1-score metrics
 y_pred = model.predict(X_test)
 acc = accuracy_score(y_test, y_pred)
 prec = precision_score(y_test, y_pred)
@@ -66,6 +77,7 @@ print(f"Precision: {prec:.4f}")
 print(f"Recall: {rec:.4f}")
 print(f"F1-Score: {f1:.4f}")
 
+# Use Seaborn to display confusion matrix
 cm = confusion_matrix(y_test, y_pred)
 plt.figure(figsize=(5, 4))
 sns.heatmap(cm, annot=True, xticklabels=["Benign", "Malignant"], yticklabels=["Benign", "Malignant"])
